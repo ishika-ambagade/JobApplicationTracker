@@ -1,4 +1,4 @@
-#DAY-1
+#DAY 1: Basic Job Application Tracker
 
 application1={
     "Company":"TCS",
@@ -50,7 +50,6 @@ def display_applications(applications):
         print(x["Company"],"|",x["Role"],"|",x["Location"],"|",x["Status"])
 
 
-
 def add_application(company,role,location,status,skills):
     application={
         "Company": company.title(),
@@ -62,11 +61,40 @@ def add_application(company,role,location,status,skills):
 
     applications.append(application)
 
+#DAY 2:Search and Update Status
+def search_application(applications):
+    search = input("Search the name of the company:")
+
+    found=False
+
+    for x in applications:
+        if search.lower() == x["Company"].lower():
+            print("Company application exists!\n",x)
+            found=True
+
+    if not found:
+        print("Oops.Company doesn't exist!")
 
 
-user=int(input("1.Add application 2.View application 3.Exit \n"))
+def update_status(applications):
+    search=input("Enter the company name to update the status:")
 
-while user!=3:
+    found=False
+
+    for x in applications:
+        if x["Company"].lower() == search.lower():
+            new_status=input("Enter new status:")
+            x["Status"]=new_status.title()
+            print("Status updated",x)
+            found=True
+
+    if not found:
+        print("Company doesn't exist!")
+
+
+user=int(input("1.Add application 2.View application 3.Search by Company 4.Update Status 5.Exit \n"))
+
+while user!=5:
     if user==1:
         Company = input("Enter name of the company:")
         Role = input("Enter name of the role:")
@@ -78,10 +106,18 @@ while user!=3:
     elif user==2:
         display_applications(applications)
 
+    elif user==3:
+        search_application(applications)
+
+    elif user==4:
+        update_status(applications)
+
     else:
         print("Invalid input!!!")
 
-    user = int(input("1.Add application 2.View application 3.Exit"))
+    user = int(input("1.Add application 2.View application 3.Search by Company 4.Update Status 5.Exit"))
+
+
 
 
 
