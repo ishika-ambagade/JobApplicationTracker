@@ -91,10 +91,28 @@ def update_status(applications):
     if not found:
         print("Company doesn't exist!")
 
+#DAY 3: Count Applications by Status
+def count_applications_by_status(applications):
+    status_count={}
 
-user=int(input("1.Add application 2.View application 3.Search by Company 4.Update Status 5.Exit \n"))
+    for x in applications:
 
-while user!=5:
+        status=x["Status"]
+
+        if status in status_count:
+           status_count[status]=status_count[status]+1
+        else:
+           status_count[status]=1
+
+    print("Application count by status:")
+
+    for x,y in status_count.items():
+        print(x,":",y)
+
+
+user=int(input("1.Add application 2.View application 3.Search by Company 4.Update Status 5.Count Applications by Status 6.Exit \n"))
+
+while user!=6:
     if user==1:
         Company = input("Enter name of the company:")
         Role = input("Enter name of the role:")
@@ -112,11 +130,13 @@ while user!=5:
     elif user==4:
         update_status(applications)
 
+    elif user==5:
+        count_applications_by_status(applications)
+
     else:
         print("Invalid input!!!")
 
-    user = int(input("1.Add application 2.View application 3.Search by Company 4.Update Status 5.Exit"))
-
+    user = int(input("\n1.Add application 2.View application 3.Search by Company 4.Update Status 5.Count Applications by Status 6.Exit\n"))
 
 
 
