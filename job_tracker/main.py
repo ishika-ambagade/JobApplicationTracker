@@ -5,7 +5,7 @@ application1={
      "Role":"Data Analyst",
     "Location":"Pune",
      "Status":"Applied",
-    "Skills":"Python, SQL, Power BI"
+    "Skills":"Python,SQL,Power BI"
 }
 
 application2={
@@ -13,7 +13,7 @@ application2={
      "Role":"Python Developer",
     "Location":"Bengaluru",
      "Status":"Interview",
-    "Skills":"Python, SQL"
+    "Skills":"Python,SQL"
 
 }
 
@@ -31,16 +31,16 @@ application4 ={
      "Role":"AI Intern",
     "Location":"Pune",
      "Status":"Applied",
-    "Skills":"Python, ML"
+    "Skills":"Python,ML"
 
 }
 
 application5={
     "Company":"Cognizant",
-    "Role": "Python Developer",
-    "Location": "Hyderabad",
-    "Status": "Applied",
-    "Skills": "Python, SQL, Git"
+    "Role":"Python Developer",
+    "Location":"Hyderabad",
+    "Status":"Applied",
+    "Skills":"Python,SQL,Git"
 }
 
 applications=[application1,application2,application3,application4,application5]
@@ -109,10 +109,34 @@ def count_applications_by_status(applications):
     for x,y in status_count.items():
         print(x,":",y)
 
+#DAY 4: Most Common Skill
+def common_skills(applications):
 
-user=int(input("1.Add application 2.View application 3.Search by Company 4.Update Status 5.Count Applications by Status 6.Exit \n"))
+    skill_count={}
 
-while user!=6:
+    for x in applications:
+
+        skills=x["Skills"].split(",")
+
+        for i in skills:
+            if i in skill_count:
+               skill_count[i]=skill_count[i]+1
+            else:
+               skill_count[i]=1
+
+    highest=0
+    for x,y in skill_count.items():
+        if y>highest:
+            highest=y
+            name=x
+
+    print("Most common skill:",name)
+
+
+
+user=int(input("1.Add application 2.View application 3.Search by Company 4.Update Status 5.Count Applications by Status 6.Find most common skill 7.Exit \n"))
+
+while user!=7:
     if user==1:
         Company = input("Enter name of the company:")
         Role = input("Enter name of the role:")
@@ -133,10 +157,13 @@ while user!=6:
     elif user==5:
         count_applications_by_status(applications)
 
+    elif user==6:
+        common_skills(applications)
+
     else:
         print("Invalid input!!!")
 
-    user = int(input("\n1.Add application 2.View application 3.Search by Company 4.Update Status 5.Count Applications by Status 6.Exit\n"))
+    user = int(input("\n1.Add application 2.View application 3.Search by Company 4.Update Status 5.Count Applications by Status 6.Find most common skill 7.Exit\n"))
 
 
 
