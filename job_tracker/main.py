@@ -152,6 +152,16 @@ def display_application(application):
         "Skills:", application["Skills"], "\n",
         sep="")
 
+#DAY 6:Input validation
+
+def get_valid_input(field):
+    value=input("Enter the " + field +":")
+
+    while value=="":
+        print(field +" cannot be empty.")
+        value=input("Enter the "+ field +":")
+
+    return value
 
 def display_menu():
     print(""" 
@@ -173,11 +183,13 @@ while True:
             choice=int(input("Choose an option:"))
 
             if choice==1:
-                company = input("Enter the company:")
-                role = input("Enter the role:")
-                location = input("Enter the location:")
-                status = input("Enter the status:")
-                skills = input("Enter the skills:")
+
+                company = get_valid_input("Company")
+                role = get_valid_input("Role")
+                location = get_valid_input("Location")
+                status = get_valid_input("Status")
+                skills = get_valid_input("Skills")
+
                 add_application(applications, company, role, location, status, skills)
 
             elif choice==2:
