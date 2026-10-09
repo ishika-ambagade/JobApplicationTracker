@@ -62,40 +62,39 @@ def add_application(applications,company,role,location,status,skills):
     applications.append(application)
 
 #DAY 2:Search and Update Status
+def find_application(applications,search):
+    for application in applications:
+        if search.lower()==application["Company"].lower():
+            return application
+
+    return None
+
+
 def search_application(applications):
     search = input("Enter the company to search:")
 
-    found=False
+    application=find_application(applications,search)
 
-    for application in applications:
-        if search.lower() == application["Company"].lower():
-            print("Application found!\n")
-            display_application(application)
-
-            found=True
-
-    if not found:
+    if application is not None:
+        print("Application found!\n")
+        display_application(application)
+    else:
         print("No application found for this company!")
 
 
 def update_status(applications):
     search=input("Enter the company to update:")
 
-    found=False
+    application=find_application(applications,search)
 
-    for application in applications:
-        if application["Company"].lower() == search.lower():
+    if application is not None:
+        new_status=input("Enter new status:")
 
-            new_status=input("Enter new status:")
+        application["Status"]=new_status.title()
 
-            application["Status"]=new_status.title()
-
-            print("Status updated!\n")
-            display_application(application)
-
-            found=True
-
-    if not found:
+        print("Status updated!\n")
+        display_application(application)
+    else:
         print("No application found for this company!")
 
 #DAY 3: Count Applications by Status
