@@ -154,11 +154,10 @@ def display_application(application):
 #DAY 6:Input validation
 
 def get_valid_input(field):
-    value=input("Enter the " + field +":")
-
+    value=input("Enter the " + field +":").strip()
     while value=="":
         print(field +" cannot be empty.")
-        value=input("Enter the "+ field +":")
+        value=input("Enter the "+ field +":").strip()
 
     return value
 
