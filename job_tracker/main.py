@@ -184,9 +184,29 @@ def get_valid_input(field):
         else:
             return value
 
-
     return value
 
+def delete_application():
+    search=input("Enter a company name:").title()
+
+    application=find_application_by_company(applications,search)
+
+    if application is not None:
+        display_application_details(application)
+
+        confirm=int(input("Application found\n"
+              "Sure want to delete?\n"
+              "1.Yes 2.No\n"))
+
+        if confirm==1:
+            applications.remove(application)
+            save_applications(applications)
+            print("Application has been successfully deleted!")
+
+        elif confirm==2:
+            print("Deletion cancelled!")
+    else:
+        print("Application doesn't exist!")
 
 def display_menu():
     print(""" 
@@ -198,7 +218,9 @@ def display_menu():
 4.Update Status 
 5.Count Applications by Status 
 6.Find most common skill 
-7.Exit
+7.Delete application
+8.Exit
+
 """)
 
 
@@ -234,15 +256,13 @@ while True:
                 common_skills(applications)
 
             elif choice==7:
+                delete_application()
+
+            elif choice==8:
                 break
 
             else:
                 print("Invalid option. Please choose a number from 1 to 7.")
 
         except ValueError:
-            print("Please enter a number from 1 to 7.")
-
-
-
-
-
+            print("Please enter a number from 1 to 8.")
