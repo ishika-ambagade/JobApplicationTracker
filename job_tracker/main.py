@@ -51,15 +51,28 @@ def load_applications():
         return applications
 
     except json.JSONDecodeError:
-        print("Error: applications.json contains invalid JSON.")
-        print("Please restore a valid backup before continuing.")
-        raise SystemError
+
+        try:
+            with open('applications_backup.json',"r") as file:
+                backup=json.load(file)
+                save_applications(backup)
+                return backup
+
+        except (json.JSONDecodeError,FileNotFoundError):
+            print("Error: applications.json contains invalid JSON.")
+            print("Please restore a valid backup before continuing.")
+            raise SystemError
+
 
 def save_applications(applications):
     with open("applications.json", "w") as file:
         json.dump(applications,file,indent=4)
 
-applications=load_applications()
+    with open("applications_backup.json","w") as file:
+        json.dump(applications,file,indent=4)
+
+applications =load_applications()
+
 
 def display_all_applications(applications):
     for application in applications:
@@ -205,6 +218,10 @@ def delete_application():
 
         elif confirm==2:
             print("Deletion cancelled!")
+
+        else:
+            print("Invalid Input\n"
+                  "Enter a number between 1 or 2")
     else:
         print("Application doesn't exist!")
 
